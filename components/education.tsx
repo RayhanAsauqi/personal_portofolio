@@ -1,419 +1,269 @@
-"use client"
+"use client";
 
-import { useEffect, useRef } from "react"
-import { gsap } from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { Calendar, MapPin, Award, BookOpen, GraduationCap, Users, Trophy } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {
+  Calendar,
+  MapPin,
+  GraduationCap,
+  Users,
+  Trophy,
+  Award,
+  BookOpen,
+} from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Educations } from "@/app/api/education/route";
+import { getImageEtag } from "next/dist/server/image-optimizer";
 
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger)
+  gsap.registerPlugin(ScrollTrigger);
 }
 
+const iconComponents: Record<string, React.ComponentType<any>> = {
+  Calendar,
+  Users,
+  Trophy,
+  Award,
+  BookOpen,
+  GraduationCap,
+  MapPin,
+};
 export function Education() {
-  const educationRef = useRef<HTMLElement>(null)
+  const educationRef = useRef<HTMLElement>(null);
+  const [educations, setEducations] = useState<Educations | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (typeof window === "undefined" || !educationRef.current) return
+    if (typeof window === "undefined" || !educationRef.current) return;
 
     const ctx = gsap.context(() => {
-      gsap.to(".parallax-bg", {
-        yPercent: -50,
-        ease: "none",
-        scrollTrigger: {
-          trigger: educationRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
-      })
-
-      // Main card entrance with scale and rotation
+      // Header animation
       gsap.fromTo(
-        ".featured-card",
+        ".section-header",
         {
           opacity: 0,
-          y: 100,
-          scale: 0.8,
-          rotationX: 15,
+          y: 30,
         },
         {
           opacity: 1,
           y: 0,
-          scale: 1,
-          rotationX: 0,
-          duration: 1.5,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".featured-card",
-            start: "top 85%",
-            end: "top 50%",
-            toggleActions: "play none none reverse",
-          },
-        },
-      )
-
-      // Progressive reveal for header elements
-      gsap.fromTo(
-        ".header-element",
-        { opacity: 0, y: 50, rotationY: 45 },
-        {
-          opacity: 1,
-          y: 0,
-          rotationY: 0,
           duration: 0.8,
-          stagger: 0.2,
           ease: "power2.out",
           scrollTrigger: {
-            trigger: ".featured-card",
-            start: "top 75%",
-            end: "top 40%",
+            trigger: ".section-header",
+            start: "top 85%",
             toggleActions: "play none none reverse",
           },
-        },
-      )
+        }
+      );
 
-      // GPA counter animation
+      // Main card animation
       gsap.fromTo(
-        ".gpa-counter",
-        { textContent: "0.00" },
+        ".education-card",
         {
-          textContent: "3.39",
-          duration: 2,
+          opacity: 0,
+          y: 40,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
           ease: "power2.out",
-          snap: { textContent: 0.01 },
           scrollTrigger: {
-            trigger: ".gpa-highlight",
+            trigger: ".education-card",
             start: "top 80%",
             toggleActions: "play none none reverse",
           },
-        },
-      )
+        }
+      );
 
-      // Details grid with wave effect
+      // Achievement items animation
       gsap.fromTo(
-        ".detail-grid-item",
-        { opacity: 0, x: -50, scale: 0.9 },
+        ".achievement-item",
+        {
+          opacity: 0,
+          x: -20,
+        },
         {
           opacity: 1,
           x: 0,
-          scale: 1,
+          stagger: 0.1,
           duration: 0.6,
-          stagger: {
-            amount: 0.4,
-            from: "start",
-          },
-          ease: "back.out(1.7)",
-          scrollTrigger: {
-            trigger: ".details-grid",
-            start: "top 80%",
-            end: "bottom 60%",
-            toggleActions: "play none none reverse",
-          },
-        },
-      )
-
-      const description = document.querySelector(".description-text")
-      if (description) {
-        const text = description.textContent || ""
-        description.textContent = ""
-
-        gsap
-          .timeline({
-            scrollTrigger: {
-              trigger: description,
-              start: "top 80%",
-              toggleActions: "play none none reverse",
-            },
-          })
-          .to(description, {
-            duration: 2,
-            ease: "none",
-            onStart: () => {
-              let i = 0
-              const typewriter = setInterval(() => {
-                if (i < text.length) {
-                  description.textContent += text.charAt(i)
-                  i++
-                } else {
-                  clearInterval(typewriter)
-                }
-              }, 30)
-            },
-          })
-      }
-
-      // Achievement cards with 3D flip effect
-      gsap.fromTo(
-        ".achievement-card",
-        {
-          opacity: 0,
-          rotationY: 90,
-          z: -100,
-        },
-        {
-          opacity: 1,
-          rotationY: 0,
-          z: 0,
-          duration: 0.8,
-          stagger: 0.3,
-          ease: "power3.out",
+          ease: "power2.out",
           scrollTrigger: {
             trigger: ".achievements-section",
-            start: "top 75%",
-            end: "bottom 50%",
+            start: "top 85%",
             toggleActions: "play none none reverse",
           },
-        },
-      )
+        }
+      );
+    }, educationRef);
 
-      // Course badges with magnetic effect
-      gsap.fromTo(
-        ".course-badge",
-        {
-          opacity: 0,
-          scale: 0,
-          rotation: 180,
-        },
-        {
-          opacity: 1,
-          scale: 1,
-          rotation: 0,
-          duration: 0.5,
-          stagger: {
-            amount: 1,
-            from: "random",
-          },
-          ease: "elastic.out(1, 0.5)",
-          scrollTrigger: {
-            trigger: ".courses-section",
-            start: "top 80%",
-            end: "bottom 60%",
-            toggleActions: "play none none reverse",
-          },
-        },
-      )
+    return () => ctx.revert();
+  }, []);
 
-      // Floating animation for icons
-      gsap.to(".floating-icon", {
-        y: -10,
-        duration: 2,
-        repeat: -1,
-        yoyo: true,
-        ease: "power2.inOut",
-        stagger: 0.2,
-      })
+  useEffect(() => {
+    // Fetch education data
+    const fetchEducation = async () => {
+      try {
+        const response = await fetch("/api/education");
+        if (!response.ok) {
+          throw new Error("Failed to fetch education data");
+        }
+        const data = await response.json();
+        setEducations(data);
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : "An unknown error occurred"
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      // Progress bar animation
-      gsap.fromTo(
-        ".progress-bar",
-        { scaleX: 0 },
-        {
-          scaleX: 1,
-          duration: 1.5,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: ".featured-card",
-            start: "top 80%",
-            end: "bottom 20%",
-            toggleActions: "play none none reverse",
-          },
-        },
-      )
+    fetchEducation();
+  }, []);
 
-      // Scroll-based rotation for decorative elements
-      gsap.to(".rotate-on-scroll", {
-        rotation: 360,
-        ease: "none",
-        scrollTrigger: {
-          trigger: educationRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1,
-        },
-      })
+  const getIconComponent = (iconName: string) => {
+    const Icon = iconComponents[iconName];
+    return Icon ? <Icon className="h-4 w-4" /> : null;
+  };
 
-      // Text reveal with mask effect
-      gsap.fromTo(
-        ".text-reveal",
-        {
-          clipPath: "inset(0 100% 0 0)",
-        },
-        {
-          clipPath: "inset(0 0% 0 0)",
-          duration: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: ".text-reveal",
-            start: "top 80%",
-            toggleActions: "play none none reverse",
-          },
-        },
-      )
-    }, educationRef)
-
-    return () => ctx.revert()
-  }, [])
-
-  const education = {
-    degree: "Bachelor of Information Technology",
-    institution: "University Paramadina",
-    location: "Jakarta, Indonesia",
-    period: "2020 - 2024",
-    status: "Graduated",
-    gpa: "3.39/4.00",
-    description:
-      "Focused on software engineering, web development, and computer systems. Completed capstone project on full-stack web application development.",
-    achievements: [
-      "Community Service Committee of Informatics Engineering Study Program (Pemanfaatan Teknologi Untuk Kegiatan Pembelajaran Pada PKBM 31 Jakarta dan PKBM 21 Jakarta)",
-      "3rd Place in Hackathon Competition",
-    ],
-    courses: ["Data Structures", "Web Development", "Database Systems", "Software Engineering", "Mobile Development"],
-    type: "degree",
-  }
+  // const education = {
+  //   degree: "Bachelor of Information Technology",
+  //   institution: "University Paramadina",
+  //   location: "Jakarta, Indonesia",
+  //   period: "2020 - 2024",
+  //   status: "Graduated",
+  //   gpa: "3.39/4.00",
+  //   description:
+  //     "Focused on software engineering, web development, and computer systems. Completed capstone project on full-stack web application development with modern technologies and best practices.",
+  //   achievements: [
+  //     {
+  //       title: "Community Service Committee",
+  //       description:
+  //         "Informatics Engineering Study Program - Technology Utilization for Learning Activities at PKBM 31 Jakarta and PKBM 21 Jakarta",
+  //       icon: Users,
+  //     },
+  //     {
+  //       title: "3rd Place Hackathon Competition",
+  //       description:
+  //         "Developed innovative solution for educational technology platform",
+  //       icon: Trophy,
+  //     },
+  //   ],
+  // };
 
   return (
-    <section
-      id="education"
-      ref={educationRef}
-      className="py-12 md:py-20 bg-gradient-to-br from-background to-muted/20"
-    >
+    <section id="education" ref={educationRef} className="py-16 md:py-24">
       <div className="container mx-auto px-4">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-3xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-12 md:mb-16">
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
+          <div className="section-header text-center mb-12">
+            <div className="inline-flex items-center gap-2 border border-border bg-secondary px-4 py-2 rounded-full text-sm font-medium mb-4">
               <GraduationCap className="h-4 w-4" />
-               Education
+              Education
             </div>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">Academic Journey</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Academic Background
+            </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              My foundational education in Information Technology that shaped my career in software development
+              Formal education that built my foundation in technology
             </p>
           </div>
 
-          {/* Main Featured Card */}
-          <Card className="featured-card relative overflow-hidden border-2 border-primary/20 shadow-2xl hover:shadow-3xl transition-all duration-500">
-            {/* Background Gradient */}
-            <div className="parallax-bg absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-purple-500/5"></div>
-
-            <CardContent className="relative p-6 md:p-10">
+          {/* Education Card */}
+          <Card className="education-card border-2 overflow-hidden">
+            <CardContent className="p-0">
               {/* Header Section */}
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-8">
-                <div className="flex-1">
-                  <div className="header-element flex items-center gap-3 mb-4">
-                    <div className="floating-icon p-3 bg-primary/10 rounded-full">
-                      <GraduationCap className="h-6 w-6 text-primary" />
-                    </div>
-                    <Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-                      {education.status}
+              <div className="bg-primary text-primary-foreground p-8">
+                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+                  <div className="flex-1">
+                    <Badge variant="secondary" className="mb-4">
+                      {educations?.status}
                     </Badge>
+                    <h3 className="text-2xl md:text-3xl font-bold mb-2 leading-tight">
+                      {educations?.degree}
+                    </h3>
+                    <p className="text-lg md:text-xl opacity-90 mb-4">
+                      {educations?.institution}
+                    </p>
+
+                    <div className="flex flex-col sm:flex-row gap-4 text-sm opacity-90">
+                      <div className="flex items-center gap-2">
+                        <Calendar className="h-4 w-4" />
+                        <span>{educations?.period}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <MapPin className="h-4 w-4" />
+                        <span>{educations?.location}</span>
+                      </div>
+                    </div>
                   </div>
 
-                  <h3 className="header-element text-reveal text-2xl md:text-3xl font-bold text-primary mb-2 leading-tight">
-                    {education.degree}
-                  </h3>
-                  <h4 className="header-element text-xl md:text-2xl font-semibold mb-4 text-foreground/90">
-                    {education.institution}
+                  {/* GPA Circle */}
+                  <div className="flex items-center justify-center bg-primary-foreground text-primary rounded-full h-24 w-24 flex-shrink-0">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold leading-none">
+                        {educations?.gpa.split("/")[0]}
+                      </div>
+                      <div className="text-xs opacity-80 mt-1">GPA / 4.00</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Content Section */}
+              <div className="p-8 space-y-8">
+                {/* Description */}
+                <div>
+                  <h4 className="text-lg font-semibold mb-3">Overview</h4>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {educations?.description}
+                  </p>
+                </div>
+
+                {/* Achievements */}
+                <div className="achievements-section">
+                  <h4 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <Trophy className="h-5 w-5" />
+                    Key Achievements
                   </h4>
-                </div>
-
-                {/* GPA Highlight */}
-                <div className="header-element gpa-highlight bg-gradient-to-br from-primary/10 to-purple-500/10 p-4 rounded-xl border border-primary/20 text-center min-w-[120px] relative overflow-hidden">
-                  <div className="progress-bar absolute bottom-0 left-0 h-1 bg-primary origin-left"></div>
-                  <div className="gpa-counter text-2xl font-bold text-primary">3.39</div>
-                  <div className="text-sm text-muted-foreground">GPA / 4.00</div>
-                </div>
-              </div>
-
-              {/* Details Grid */}
-              <div className="details-grid grid md:grid-cols-2 gap-6 mb-8">
-                <div className="detail-grid-item flex items-center gap-3 p-4 bg-background/50 rounded-lg border">
-                  <Calendar className="floating-icon h-5 w-5 text-primary flex-shrink-0" />
-                  <div>
-                    <div className="font-medium">{education.period}</div>
-                    <div className="text-sm text-muted-foreground">Study Period</div>
-                  </div>
-                </div>
-
-                <div className="detail-grid-item flex items-center gap-3 p-4 bg-background/50 rounded-lg border">
-                  <MapPin className="floating-icon h-5 w-5 text-primary flex-shrink-0" />
-                  <div>
-                    <div className="font-medium">{education.location}</div>
-                    <div className="text-sm text-muted-foreground">Location</div>
+                  <div className="space-y-4">
+                    {educations?.achievements.map((achievement, i) => (
+                      <div
+                        key={i}
+                        className="achievement-item flex items-start gap-4 p-4 border-l-2 border-primary bg-secondary/50 rounded-r-lg"
+                      >
+                        <div className="p-2 bg-background border rounded-full flex-shrink-0">
+                          {getIconComponent(achievement.icon)}
+                        </div>
+                        <div className="min-w-0">
+                          <h5 className="font-medium mb-1">
+                            {achievement.title}
+                          </h5>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            {achievement.description}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
 
-              {/* Description */}
-              <div className="detail-item mb-8">
-                <p className="description-text text-base md:text-lg text-muted-foreground leading-relaxed">
-                  {education.description}
-                </p>
-              </div>
-
-              {/* Achievements Section */}
-              <div className="achievements-section mb-8">
-                <h5 className="flex items-center gap-2 text-lg font-semibold text-primary mb-6">
-                  <Trophy className="h-5 w-5" />
-                  Key Achievements & Activities
-                </h5>
-                <div className="space-y-4">
-                  {education.achievements.map((achievement, i) => (
-                    <div
-                      key={i}
-                      className="achievement-card flex items-start gap-4 p-4 bg-gradient-to-r from-primary/5 to-transparent rounded-lg border-l-4 border-primary"
-                    >
-                      <div className="floating-icon p-2 bg-primary/10 rounded-full flex-shrink-0 mt-1">
-                        {i === 0 ? (
-                          <Users className="h-4 w-4 text-primary" />
-                        ) : (
-                          <Trophy className="h-4 w-4 text-primary" />
-                        )}
-                      </div>
-                      <div>
-                        <p className="text-reveal font-medium text-foreground leading-relaxed">{achievement}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Courses Section */}
-              <div className="courses-section">
-                <h5 className="flex items-center gap-2 text-lg font-semibold text-primary mb-6">
-                  <BookOpen className="h-5 w-5" />
-                  Core Subjects & Specializations
-                </h5>
-                <div className="flex flex-wrap gap-3">
-                  {education.courses.map((course, i) => (
-                    <Badge
-                      key={i}
-                      variant="secondary"
-                      className="course-badge text-sm py-2 px-4 bg-gradient-to-r from-primary/10 to-purple-500/10 border border-primary/20 hover:scale-105 transition-transform"
-                    >
-                      {course}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-
-              {/* Bottom Stats */}
-              <div className="detail-item mt-8 pt-6 border-t border-border">
-                <div className="flex items-center justify-between text-sm text-muted-foreground">
-                  <span className="flex items-center gap-2">
-                    <Award className="h-4 w-4" />
-                    4-Year Bachelor&apos;s Program
-                  </span>
-                  <span>Graduated {new Date().getFullYear() - 2024} years ago</span>
-                </div>
+              {/* Footer */}
+              <div className="px-8 py-4 border-t bg-secondary/30 flex items-center justify-between text-sm text-muted-foreground">
+                <span>4 Years and 8 Months Bachelor's Program</span>
+                <span>Information Technology</span>
               </div>
             </CardContent>
-            <div className="rotate-on-scroll absolute top-4 right-4 w-20 h-20 border-2 border-primary/20 rounded-full"></div>
           </Card>
         </div>
       </div>
     </section>
-  )
+  );
 }

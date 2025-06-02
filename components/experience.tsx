@@ -351,9 +351,30 @@ export function Experience() {
                           <span className="truncate">{exp.location}</span>
                         </div>
 
-                        <p className="job-description text-sm md:text-base text-muted-foreground mb-4 md:mb-6 leading-relaxed line-clamp-3">
-                          {exp.description}
-                        </p>
+                        <ul className="space-y-2">
+                          {Array.isArray(exp?.description) ? (
+                            <>
+                              {exp.description.slice(0, 1).map((desc, i) => (
+                                <li
+                                  key={i}
+                                  className="flex items-start gap-2 text-sm md:text-base mb-2 leading-relaxed"
+                                >
+                                  <span className="text-primary mt-1">•</span>
+                                  <span className="text-muted-foreground">
+                                    {desc}
+                                  </span>
+                                </li>
+                              ))}
+                            </>
+                          ) : (
+                            <li className="flex items-start gap-2">
+                              <span className="text-muted-foreground">
+                                {exp?.description || "No description available"}
+                              </span>
+                            </li>
+                          )}
+                        </ul>
+
                         <Button
                           variant="ghost"
                           onClick={() => handleOpen(exp.slug)}
