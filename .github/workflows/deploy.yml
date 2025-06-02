@@ -1,0 +1,22 @@
+name: Trigger Netlify Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Load .env file
+        run: |
+          cat .env >> $GITHUB_ENV
+
+      - name: Trigger Netlify Build
+        run: |
+          curl -X POST -d '{}' "$NETLIFY_BUILD_HOOK_URL"
