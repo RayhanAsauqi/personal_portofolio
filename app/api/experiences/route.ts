@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 export type ExperienceState = {
+  slug: string;
   title: string;
   company: string;
   location: string;
@@ -12,6 +13,7 @@ export type ExperienceState = {
 const experiences: ExperienceState[] = [
   {
     title: "Frontend Developer",
+    slug: "frontend-developer-fakta",
     company: "Fakta.com",
     location: "South Jakarta, Pancoran, DKI Jakarta, Indonesia",
     period: "Jan 2025 - Present",
@@ -21,15 +23,17 @@ const experiences: ExperienceState[] = [
   },
   {
     title: "Frontend Developer",
+    slug: "frontend-developer-sarimurni",
     company: "PT. Sarimurni",
     location: "Setiabudi, South Jakarta, DKI Jakarta, Indonesia",
     period: "Oct 2024 - present",
     description:
-      "Developed and maintained multiple client projects using modern web technologies. Collaborated with design teams to create responsive and user-friendly interfaces.",
+      "In this project, I was responsible for developing a web-based Learning Management System (LMS) for internal use by Sarimurni Group. The platform supports employee training and development in a centralized and digital way. I designed a responsive and intuitive UI/UX aligned with the company’s visual identity. My main focus was building the CMS interface that allows admins to manage content, users, and system settings efficiently. I also integrated the frontend with APIs provided by the backend team to ensure dynamic data handling. To maintain security, I implemented a Role-Based Access Control (RBAC) system, ensuring users access features based on their roles and responsibilities.",
     type: "Internship",
   },
   {
     title: "Frontend Developer",
+    slug: "frontend-developer-gits",
     company: "PT. GITS Indonesia",
     location: "Summarecon, Bandung, West Java, Indonesia",
     period: "Aug 2023 - Des 2023",
@@ -39,6 +43,7 @@ const experiences: ExperienceState[] = [
   },
   {
     title: "Frontend Web Developer",
+    slug: "frontend-web-developer-skilvul",
     company: "Skilvul",
     location: "Jakarta South, DKI Jakarta, Indonesia",
     period: "Feb 2023 - Jun 2023",

@@ -3,7 +3,7 @@
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import { Send, Mail, Phone, MapPin, Github, Linkedin } from "lucide-react";
+import { Send, Mail, Phone, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -80,7 +80,7 @@ export function Contact() {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch("/api/send", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -89,10 +89,12 @@ export function Contact() {
       });
 
       const data = await res.json();
+
+      if (!res.ok) throw new Error(data.message || "Failed to send");
+
       toast.success("Message sent successfully!", {
         position: "bottom-center",
       });
-      if (!res.ok) throw new Error(data.message || "Failed to send");
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (error) {
       console.error("Email send error:", error);
@@ -109,6 +111,7 @@ export function Contact() {
       icon: Mail,
       title: "Email",
       value: "reyhanalsauqi12@gmail.com",
+      href: "mailto:reyhanalsauqi12@gmail.com",
     },
     {
       icon: Phone,
@@ -124,18 +127,6 @@ export function Contact() {
     },
   ];
 
-  const socialLinks = [
-    {
-      icon: Github,
-      title: "GitHub",
-      href: "https://github.com",
-    },
-    {
-      icon: Linkedin,
-      title: "LinkedIn",
-      href: "https://www.linkedin.com/in/rayhan-alsauqi",
-    },
-  ];
 
   return (
     <section id="contact" ref={contactRef} className="py-20 bg-muted/30">
@@ -148,11 +139,13 @@ export function Contact() {
           <div className="grid lg:grid-cols-2 gap-12">
             <div className="space-y-8">
               <div className="contact-card">
-                <h3 className="text-2xl font-semibold mb-6">Let's Connect</h3>
+                <h3 className="text-2xl font-semibold mb-6">
+                  Let&apos;s Connect
+                </h3>
                 <p className="text-muted-foreground mb-8 leading-relaxed">
-                  I'm always interested in hearing about new opportunities and
-                  exciting projects. Whether you have a question or just want to
-                  say hi, feel free to reach out!
+                  I&apos;m always interested in hearing about new opportunities
+                  and exciting projects. Whether you have a question or just
+                  want to say hi, feel free to reach out!
                 </p>
 
                 <div className="space-y-4 mb-8">
@@ -171,20 +164,6 @@ export function Contact() {
                           {info.value}
                         </div>
                       </div>
-                    </a>
-                  ))}
-                </div>
-
-                <div className="flex gap-4">
-                  {socialLinks.map((social, index) => (
-                    <a
-                      key={index}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-3 bg-primary/10 rounded-lg hover:bg-primary/20 transition-colors group"
-                    >
-                      <social.icon className="h-5 w-5 text-primary group-hover:scale-110 transition-transform" />
                     </a>
                   ))}
                 </div>

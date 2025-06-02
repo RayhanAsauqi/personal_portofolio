@@ -5,7 +5,6 @@ import { gsap } from "gsap";
 import {
   Download,
   Github,
-  Gitlab,
   Instagram,
   Linkedin,
   Mail,
@@ -55,7 +54,6 @@ export function Hero() {
           "-=0.3"
         );
 
-      // Floating animation
       gsap.to(".hero-title", {
         y: -10,
         duration: 2,
