@@ -99,18 +99,18 @@ export function About() {
           <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
             <div className="about-content">
               <h3 className="text-2xl font-semibold mb-6">
-                Hello! I'm Rayhan Alsauqi
+                Hello! I&apos;m Rayhan Alsauqi
               </h3>
               <p className="text-muted-foreground mb-6 leading-relaxed">
-                I'm a passionate full-stack developer with over 5 years of
+                I&apos;m a passionate full-stack developer with over 5 years of
                 experience creating digital solutions that make a difference. I
                 love turning complex problems into simple, beautiful, and
                 intuitive designs.
               </p>
               <p className="text-muted-foreground mb-6 leading-relaxed">
-                When I'm not coding, you can find me exploring new technologies,
-                contributing to open-source projects, or sharing my knowledge
-                through blog posts and mentoring.
+                When I&apos;m not coding, you can find me exploring new
+                technologies, contributing to open-source projects, or sharing
+                my knowledge through blog posts and mentoring.
               </p>
               <p className="text-muted-foreground leading-relaxed">
                 I believe in the power of collaboration and am always excited to
@@ -120,19 +120,17 @@ export function About() {
             </div>
 
             <div className="about-content">
-              <div className="bg-gradient-to-br from-muted/50 to-accent/50 rounded-lg  text-center border">
+              <div className="bg-gradient-to-br from-muted/50 to-accent/50 rounded-lg text-center border">
                 <Image
                   src="/assets/rayhan_image.jpg"
                   width={400}
                   height={400}
-                  className="w-full h-full rounded-lg  "
+                  className="w-full h-full rounded-lg"
                   alt="portofolio image"
                 />
               </div>
             </div>
           </div>
-
-          
         </div>
       </div>
     </section>

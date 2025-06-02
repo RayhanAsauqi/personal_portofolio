@@ -9,9 +9,9 @@ import { cn } from "@/lib/utils";
 
 export function Navigation() {
   const navRef = useRef<HTMLElement>(null);
-  const [isOpen, setIsOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [mounted, setMounted] = useState<boolean>(false);
+  const [activeSection, setActiveSection] = useState<string>("home");
   const { theme, setTheme } = useTheme();
 
   useEffect(() => {
@@ -30,17 +30,23 @@ export function Navigation() {
     return () => ctx.revert();
   }, []);
 
-  // Set up intersection observer to detect active section
   useEffect(() => {
-    const sections = ["home", "about", "skills", "experience", "contact"];
+    const sections = [
+      "home",
+      "about",
+      "skills",
+      "experience",
+      "education",
+      "contact",
+    ];
     const sectionElements = sections
       .map((id) => document.getElementById(id))
       .filter(Boolean);
 
     const observerOptions = {
       root: null,
-      rootMargin: "-80px 0px -20% 0px", // Adjust rootMargin to trigger at appropriate scroll position
-      threshold: 0.3, // Percentage of section visible to trigger callback
+      rootMargin: "-80px 0px -20% 0px",
+      threshold: 0.3,
     };
 
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
@@ -105,25 +111,30 @@ export function Navigation() {
           </div>
 
           <div className="hidden md:flex items-center space-x-8">
-            {["home", "about", "skills", "experience", "contact"].map(
-              (item) => (
-                <button
-                  key={item}
-                  onClick={() => scrollToSection(item)}
-                  className={cn(
-                    "nav-item capitalize transition-all duration-300 relative",
-                    "hover:text-primary hover:translate-y-[-2px]",
-                    "after:content-[''] after:absolute after:left-0 after:bottom-[-6px]",
-                    "after:h-[3px] after:bg-primary after:transition-all after:duration-300",
-                    activeSection === item
-                      ? "text-primary font-medium after:w-full"
-                      : "after:w-0 hover:after:w-full"
-                  )}
-                >
-                  {item}
-                </button>
-              )
-            )}
+            {[
+              "home",
+              "about",
+              "skills",
+              "experience",
+              "education",
+              "contact",
+            ].map((item) => (
+              <button
+                key={item}
+                onClick={() => scrollToSection(item)}
+                className={cn(
+                  "nav-item capitalize transition-all duration-300 relative",
+                  "hover:text-primary hover:translate-y-[-2px]",
+                  "after:content-[''] after:absolute after:left-0 after:bottom-[-6px]",
+                  "after:h-[3px] after:bg-primary after:transition-all after:duration-300",
+                  activeSection === item
+                    ? "text-primary font-medium after:w-full"
+                    : "after:w-0 hover:after:w-full"
+                )}
+              >
+                {item}
+              </button>
+            ))}
             {mounted && (
               <Button
                 variant="outline"
@@ -169,7 +180,7 @@ export function Navigation() {
         {isOpen && (
           <div className="md:hidden mt-4 pb-4 border-t">
             <div className="flex flex-col space-y-4 pt-4">
-              {["home", "about", "skills", "experience", "contact"].map(
+              {["home", "about", "skills", "experience", "education", "contact"].map(
                 (item) => (
                   <button
                     key={item}

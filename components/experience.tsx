@@ -6,15 +6,20 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Calendar, MapPin, Briefcase } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import type { ExperienceState } from "@/app/api/experiences/route";
+import { useDisclosure } from "@/hooks/use-disclosure";
+import ExperienceDetail from "./modals/experince-detail";
+import { Button } from "./ui/button";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
 export function Experience() {
+  const { isOpen, setIsOpenAction } = useDisclosure();
   const experienceRef = useRef<HTMLElement>(null);
   const [experiences, setExperiences] = useState<ExperienceState[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/experiences")
@@ -26,18 +31,16 @@ export function Experience() {
       .catch((err) => console.error("Failed to fetch experiences", err));
   }, []);
 
+  const handleOpen = (slug: string) => {
+    setSelectedSlug(slug);
+    setIsOpenAction(true);
+  };
+
   useEffect(() => {
     if (typeof window === "undefined" || !experienceRef.current || !isLoaded)
       return;
 
     const ctx = gsap.context(() => {
-      // Get the primary color from CSS custom property
-      const primaryColor = getComputedStyle(document.documentElement)
-        .getPropertyValue("--primary")
-        .trim();
-      const primaryHsl = primaryColor ? `hsl(${primaryColor})` : "#3b82f6"; // fallback to blue
-
-      // Title entrance with 3D effect
       gsap.fromTo(
         ".experience-title",
         {
@@ -60,7 +63,6 @@ export function Experience() {
         }
       );
 
-      // Timeline line progressive reveal
       gsap.fromTo(
         ".timeline-line",
         { scaleY: 0, transformOrigin: "top center" },
@@ -77,13 +79,11 @@ export function Experience() {
         }
       );
 
-      // Timeline items with advanced animations
       document.querySelectorAll(".timeline-item").forEach((item, index) => {
         const isEven = index % 2 === 0;
         const card = item.querySelector(".timeline-card");
         const dot = item.querySelector(".timeline-dot");
 
-        // Set initial states
         gsap.set(item, {
           opacity: 0,
           x: isEven ? -100 : 100,
@@ -103,7 +103,6 @@ export function Experience() {
           rotationX: 15,
         });
 
-        // Create timeline for each item
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: item,
@@ -113,14 +112,12 @@ export function Experience() {
           },
         });
 
-        // Animate timeline dot first
         tl.to(dot, {
           scale: 1,
           rotation: 0,
           duration: 0.5,
           ease: "back.out(1.7)",
         })
-          // Then animate the container
           .to(
             item,
             {
@@ -132,7 +129,6 @@ export function Experience() {
             },
             "-=0.3"
           )
-          // Finally animate the card
           .to(
             card,
             {
@@ -146,7 +142,6 @@ export function Experience() {
             "-=0.4"
           );
 
-        // Add floating animation to dots
         gsap.to(dot, {
           y: -5,
           duration: 2,
@@ -156,7 +151,6 @@ export function Experience() {
           delay: index * 0.2,
         });
 
-        // Parallax effect for cards
         gsap.to(card, {
           y: -20,
           ease: "none",
@@ -168,7 +162,6 @@ export function Experience() {
           },
         });
 
-        // Text reveal animations
         const title = item.querySelector(".job-title");
         const company = item.querySelector(".company-name");
         const description = item.querySelector(".job-description");
@@ -226,7 +219,6 @@ export function Experience() {
           );
         }
 
-        // Hover animations
         const cardElement = card as HTMLElement;
         if (cardElement) {
           cardElement.addEventListener("mouseenter", () => {
@@ -259,7 +251,6 @@ export function Experience() {
         }
       });
 
-      // Background elements animation
       gsap.to(".bg-decoration", {
         rotation: 360,
         duration: 20,
@@ -267,7 +258,6 @@ export function Experience() {
         ease: "none",
       });
 
-      // Scroll-based rotation for decorative elements
       gsap.to(".rotate-on-scroll", {
         rotation: 180,
         ease: "none",
@@ -341,7 +331,6 @@ export function Experience() {
                     } pl-12 md:pl-0 pr-4 md:pr-0`}
                   >
                     <Card className="timeline-card hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/20 relative overflow-hidden">
-                      {/* Card gradient overlay */}
                       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-purple-500/5 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
 
                       <CardContent className="p-4 md:p-8 relative z-10">
@@ -362,10 +351,15 @@ export function Experience() {
                           <span className="truncate">{exp.location}</span>
                         </div>
 
-                        <p className="job-description text-sm md:text-base text-muted-foreground mb-4 md:mb-6 leading-relaxed">
+                        <p className="job-description text-sm md:text-base text-muted-foreground mb-4 md:mb-6 leading-relaxed line-clamp-3">
                           {exp.description}
                         </p>
-
+                        <Button
+                          variant="ghost"
+                          onClick={() => handleOpen(exp.slug)}
+                        >
+                          View Details
+                        </Button>
                         <div className="mt-4 md:mt-6 pt-3 md:pt-4 border-t border-border">
                           <div className="flex items-center justify-between text-xs text-muted-foreground">
                             <span>Job Type</span>
@@ -375,7 +369,6 @@ export function Experience() {
                           </div>
                         </div>
 
-                        {/* Progress indicator */}
                         <div className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-primary to-purple-500 w-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                       </CardContent>
                     </Card>
@@ -392,8 +385,14 @@ export function Experience() {
             </div>
           </div>
         </div>
-          
       </div>
+      {selectedSlug && (
+        <ExperienceDetail
+          isOpen={isOpen}
+          setIsOpenAction={setIsOpenAction}
+          slug={selectedSlug}
+        />
+      )}
     </section>
   );
 }
