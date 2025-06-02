@@ -105,9 +105,6 @@ export function Navigation() {
               size={30}
               className="text-primary group-hover:scale-110 transition-transform duration-300"
             />
-            <span className="group-hover:text-primary transition-colors duration-300">
-              Portfolio
-            </span>
           </div>
 
           <div className="hidden md:flex items-center space-x-8">

@@ -5,6 +5,7 @@ export type ExperienceState = {
   slug: string;
   title: string;
   company: string;
+  company_url?: string;
   location: string;
   period: string;
   description: string;
@@ -18,6 +19,7 @@ const experiences: ExperienceState[] = [
     title: "Frontend Developer",
     slug: "frontend-developer-fakta",
     company: "Fakta.com",
+    company_url: "https://fakta.com/footer/about-us",
     location: "South Jakarta, Pancoran, DKI Jakarta, Indonesia",
     period: "Jan 2025 - Present",
     description:
@@ -34,6 +36,7 @@ const experiences: ExperienceState[] = [
     title: "Frontend Developer",
     slug: "frontend-developer-sarimurni",
     company: "PT. Sarimurni",
+    company_url: "https://sarimurni.co.id/id/tentang-kami",
     location: "Setiabudi, South Jakarta, DKI Jakarta, Indonesia",
     period: "Oct 2024 - Present",
     current_period: "Present",
@@ -53,6 +56,7 @@ const experiences: ExperienceState[] = [
     title: "Frontend Developer",
     slug: "frontend-developer-gits",
     company: "PT. GITS Indonesia",
+    company_url: "https://gits.id/about/",
     location: "Summarecon, Bandung, West Java, Indonesia",
     current_period: "5 months",
     period: "Aug 2023 - Des 2023",
@@ -63,12 +67,13 @@ const experiences: ExperienceState[] = [
       "Led frontend development and collaborated with backend team",
       "Mentored junior developers",
     ],
-    technologies: ["React", "Node.js", "AWS"],
+    technologies: ["Vue.js", "Nuxt.js", "Morpheme UI", "Tailwind CSS"],
   },
   {
     title: "Frontend Web Developer",
     slug: "frontend-web-developer-skilvul",
     company: "Skilvul",
+    company_url: "https://skilvul.com/about/",
     location: "Jakarta South, DKI Jakarta, Indonesia",
     period: "Feb 2023 - Juli 2023",
     current_period: "5 months",
@@ -79,7 +84,7 @@ const experiences: ExperienceState[] = [
       "Led frontend development and collaborated with backend team",
       "Mentored junior developers",
     ],
-    technologies: ["React", "Node.js", "AWS"],
+    technologies: ["React", "Bootstrap", "Node.js", "Express.js", "MySQL"],
   },
 ];
 

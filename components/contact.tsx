@@ -115,9 +115,9 @@ export function Contact() {
     },
     {
       icon: Phone,
-      title: "Phone",
+      title: "WhatsApp",
       value: "+62 821-9863-3882",
-      href: "tel:+6282198633882",
+      href: "https://wa.me/6282198633882",
     },
     {
       icon: MapPin,
@@ -126,7 +126,6 @@ export function Contact() {
       href: "#",
     },
   ];
-
 
   return (
     <section id="contact" ref={contactRef} className="py-20 bg-muted/30">

@@ -161,7 +161,7 @@ export default function ExperienceDetail({
                     asChild
                   >
                     <a
-                      href={detail?.company ?? "#"}
+                      href={detail?.company_url ?? "#"}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
