@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { SVGProps, useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -15,13 +15,12 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Educations } from "@/app/api/education/route";
-import { getImageEtag } from "next/dist/server/image-optimizer";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const iconComponents: Record<string, React.ComponentType<any>> = {
+const iconComponents: Record<string, React.FC<SVGProps<SVGSVGElement>>> = {
   Calendar,
   Users,
   Trophy,
@@ -33,14 +32,11 @@ const iconComponents: Record<string, React.ComponentType<any>> = {
 export function Education() {
   const educationRef = useRef<HTMLElement>(null);
   const [educations, setEducations] = useState<Educations | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (typeof window === "undefined" || !educationRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Header animation
       gsap.fromTo(
         ".section-header",
         {
@@ -60,7 +56,6 @@ export function Education() {
         }
       );
 
-      // Main card animation
       gsap.fromTo(
         ".education-card",
         {
@@ -80,7 +75,6 @@ export function Education() {
         }
       );
 
-      // Achievement items animation
       gsap.fromTo(
         ".achievement-item",
         {
@@ -106,7 +100,6 @@ export function Education() {
   }, []);
 
   useEffect(() => {
-    // Fetch education data
     const fetchEducation = async () => {
       try {
         const response = await fetch("/api/education");
@@ -116,11 +109,8 @@ export function Education() {
         const data = await response.json();
         setEducations(data);
       } catch (err) {
-        setError(
-          err instanceof Error ? err.message : "An unknown error occurred"
-        );
-      } finally {
-        setLoading(false);
+        console.error("Error fetching education data:", err);
+        setEducations(null);
       }
     };
 
@@ -131,31 +121,6 @@ export function Education() {
     const Icon = iconComponents[iconName];
     return Icon ? <Icon className="h-4 w-4" /> : null;
   };
-
-  // const education = {
-  //   degree: "Bachelor of Information Technology",
-  //   institution: "University Paramadina",
-  //   location: "Jakarta, Indonesia",
-  //   period: "2020 - 2024",
-  //   status: "Graduated",
-  //   gpa: "3.39/4.00",
-  //   description:
-  //     "Focused on software engineering, web development, and computer systems. Completed capstone project on full-stack web application development with modern technologies and best practices.",
-  //   achievements: [
-  //     {
-  //       title: "Community Service Committee",
-  //       description:
-  //         "Informatics Engineering Study Program - Technology Utilization for Learning Activities at PKBM 31 Jakarta and PKBM 21 Jakarta",
-  //       icon: Users,
-  //     },
-  //     {
-  //       title: "3rd Place Hackathon Competition",
-  //       description:
-  //         "Developed innovative solution for educational technology platform",
-  //       icon: Trophy,
-  //     },
-  //   ],
-  // };
 
   return (
     <section id="education" ref={educationRef} className="py-16 md:py-24">
@@ -257,7 +222,7 @@ export function Education() {
 
               {/* Footer */}
               <div className="px-8 py-4 border-t bg-secondary/30 flex items-center justify-between text-sm text-muted-foreground">
-                <span>4 Years and 8 Months Bachelor's Program</span>
+                <span>4 Years and 8 Months Bachelor&apos;s Program</span>
                 <span>Information Technology</span>
               </div>
             </CardContent>
