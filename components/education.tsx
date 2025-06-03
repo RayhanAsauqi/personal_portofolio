@@ -50,8 +50,6 @@ const iconComponents: Record<string, React.FC<SVGProps<SVGSVGElement>>> = {
 export function Education() {
   const educationRef = useRef<HTMLElement>(null);
   const [educations, setEducations] = useState<Educations | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (typeof window === "undefined" || !educationRef.current) return;
@@ -123,22 +121,16 @@ export function Education() {
   useEffect(() => {
     const fetchEducation = async () => {
       try {
-        setLoading(true);
         const response = await fetch("/api/education");
         if (!response.ok) {
           throw new Error(`Failed to fetch education data: ${response.status}`);
         }
         const data = await response.json();
         setEducations(data);
-        setError(null);
       } catch (err) {
         console.error("Error fetching education data:", err);
-        setError(
-          err instanceof Error ? err.message : "Failed to load education data"
-        );
+
         setEducations(null);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -149,51 +141,6 @@ export function Education() {
     const Icon = iconComponents[iconName];
     return Icon ? <Icon className="h-4 w-4" /> : null;
   };
-
-  if (loading) {
-    return (
-      <section id="education" className="py-16 md:py-24">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <div className="text-center">
-              <div className="animate-pulse">
-                <div className="h-8 bg-secondary rounded w-48 mx-auto mb-4"></div>
-                <div className="h-12 bg-secondary rounded w-64 mx-auto mb-8"></div>
-                <div className="h-32 bg-secondary rounded mb-4"></div>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="h-48 bg-secondary rounded"></div>
-                  <div className="h-48 bg-secondary rounded"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  if (error) {
-    return (
-      <section id="education" className="py-16 md:py-24">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <div className="text-center">
-              <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-6">
-                <h3 className="text-lg font-semibold text-destructive mb-2">
-                  Error Loading Education Data
-                </h3>
-                <p className="text-muted-foreground">{error}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  if (!educations) {
-    return null;
-  }
 
   return (
     <section id="education" ref={educationRef} className="py-16 md:py-24">
@@ -220,23 +167,23 @@ export function Education() {
                     variant="outline"
                     className="mb-3 bg-background/80  border-primary-foreground/30"
                   >
-                    {educations.status}
+                    {educations?.status}
                   </Badge>
                   <h3 className="text-xl md:text-2xl font-bold mb-2 leading-tight">
-                    {educations.degree}
+                    {educations?.degree}
                   </h3>
                   <p className="text-base md:text-lg opacity-90 mb-3">
-                    {educations.institution}
+                    {educations?.institution}
                   </p>
 
                   <div className="flex flex-wrap gap-4 text-sm opacity-90">
                     <div className="flex items-center gap-2">
                       <Calendar className="h-4 w-4" />
-                      <span>{educations.period}</span>
+                      <span>{educations?.period}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <MapPin className="h-4 w-4" />
-                      <span>{educations.location}</span>
+                      <span>{educations?.location}</span>
                     </div>
                   </div>
                 </div>
@@ -244,7 +191,7 @@ export function Education() {
                 <div className="flex items-center justify-center bg-background dark:bg-card text-primary rounded-full h-20 w-20 flex-shrink-0 shadow-md border-2 border-primary/20">
                   <div className="text-center">
                     <div className="text-xl font-bold leading-none">
-                      {educations.gpa.split("/")[0]}
+                      {educations?.gpa.split("/")[0]}
                     </div>
                     <div className="text-xs opacity-80 mt-1">GPA / 4.00</div>
                   </div>
@@ -260,7 +207,7 @@ export function Education() {
                     Overview
                   </h4>
                   <p className="text-muted-foreground leading-relaxed">
-                    {educations.description}
+                    {educations?.description}
                   </p>
                 </CardContent>
               </Card>
@@ -272,7 +219,7 @@ export function Education() {
                     Key Achievements
                   </h4>
                   <div className="space-y-3 achievements-section">
-                    {educations.achievements.map((achievement, i) => (
+                    {educations?.achievements.map((achievement, i) => (
                       <div
                         key={i}
                         className="achievement-item flex items-start gap-3 p-3 bg-secondary/50 dark:bg-secondary/30 rounded-lg border-l-2 border-primary"
@@ -297,7 +244,7 @@ export function Education() {
 
             <div className="text-center text-sm text-muted-foreground bg-secondary/50 dark:bg-secondary/30 p-3 rounded-lg border border-border/50">
               <span className="inline-flex items-center gap-2">
-                <GraduationCap className="h-4 w-4" />4 Years and 8 Months
+                <GraduationCap className="h-4 w-4" />4 Years and 4 Months
                 Bachelor&apos;s Program • Information Technology
               </span>
             </div>

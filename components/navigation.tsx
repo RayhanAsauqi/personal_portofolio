@@ -12,6 +12,7 @@ export function Navigation() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [mounted, setMounted] = useState<boolean>(false);
   const [activeSection, setActiveSection] = useState<string>("home");
+  const [scrollProgress, setScrollProgress] = useState<number>(0);
   const { theme, setTheme } = useTheme();
 
   useEffect(() => {
@@ -73,6 +74,26 @@ export function Navigation() {
     };
   }, []);
 
+  // Scroll progress effect
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      setScrollProgress(Math.min(scrollPercent, 100));
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // Initial calculation
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
@@ -95,7 +116,15 @@ export function Navigation() {
       ref={navRef}
       className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b"
     >
-      <div className="container mx-auto px-4  lg:px-28 py-4">
+      {/* Scroll Progress Bar */}
+      <div className="absolute top-0 left-0 h-1 bg-primary/20 w-full">
+        <div
+          className="h-full bg-gradient-to-r from-primary to-primary/80 transition-all duration-150 ease-out"
+          style={{ width: `${scrollProgress}%` }}
+        />
+      </div>
+
+      <div className="container mx-auto px-4 lg:px-28 py-4">
         <div className="flex items-center justify-between">
           <div
             className="nav-item font-bold text-xl flex items-center gap-2 group cursor-pointer"
