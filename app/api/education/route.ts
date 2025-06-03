@@ -29,7 +29,7 @@ export async function GET(): Promise<NextResponse<Educations>> {
     degree: "Bachelor of Information Technology",
     institution: "University Paramadina",
     location: "Jakarta, Indonesia",
-    period: "Sep 2020 - May 2025",
+    period: "Sep 2020 - Jan 2025",
     status: "Graduated",
     gpa: "3.39/4.00",
     description:

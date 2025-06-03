@@ -273,24 +273,7 @@ export function Experience() {
     return () => ctx.revert();
   }, [isLoaded]);
 
-  if (!isLoaded) {
-    return (
-      <section className="py-12 md:py-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="animate-pulse">
-              <div className="h-8 bg-muted rounded w-64 mx-auto mb-16"></div>
-              <div className="space-y-8">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="h-48 bg-muted rounded"></div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
+
 
   return (
     <section

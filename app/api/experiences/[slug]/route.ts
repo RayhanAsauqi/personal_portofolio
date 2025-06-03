@@ -6,6 +6,7 @@ export type ExperienceState = {
   title: string;
   company: string;
   company_url?: string;
+  locations_url?: string;
   location: string;
   period: string;
   description: string;
@@ -20,6 +21,7 @@ const experiences: ExperienceState[] = [
     slug: "frontend-developer-fakta",
     company: "Fakta.com",
     company_url: "https://fakta.com/footer/about-us",
+    locations_url: "https://maps.app.goo.gl/nzG3GDhcpov98Qex8",
     location: "South Jakarta, Pancoran, DKI Jakarta, Indonesia",
     period: "Jan 2025 - Present",
     description:
@@ -44,6 +46,7 @@ const experiences: ExperienceState[] = [
     company: "PT. Sarimurni",
     company_url: "https://sarimurni.co.id/id/tentang-kami",
     location: "South Jakarta, DKI Jakarta, Indonesia",
+    locations_url: "https://maps.app.goo.gl/oSvgibycZ2hani136",
     period: "Oct 2024 - Present",
     current_period: "Present",
     description:
@@ -66,6 +69,7 @@ const experiences: ExperienceState[] = [
     company: "PT. GITS Indonesia",
     company_url: "https://gits.id/about/",
     location: "Summarecon, Bandung, West Java, Indonesia",
+    locations_url: "https://maps.app.goo.gl/dXMWwzE4kYPj4UG37",
     current_period: "5 months",
     period: "Aug 2023 - Des 2023",
     description:
@@ -88,6 +92,7 @@ const experiences: ExperienceState[] = [
     company: "Skilvul",
     company_url: "https://skilvul.com/about/",
     location: "Jakarta South, DKI Jakarta, Indonesia",
+    locations_url: "https://maps.app.goo.gl/k9ofi6CEibuH8ccG9",
     period: "Feb 2023 - Juli 2023",
     current_period: "5 months",
     description:

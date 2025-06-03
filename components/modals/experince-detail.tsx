@@ -18,6 +18,7 @@ import {
 import { useEffect, useState } from "react";
 import type { ExperienceState } from "@/app/api/experiences/[slug]/route";
 import { Skeleton } from "../ui/skeleton";
+import Link from "next/link";
 
 type ExperienceDetailProps = {
   isOpen: boolean;
@@ -138,20 +139,21 @@ export default function ExperienceDetail({
                     </div>
                   </div>
                 </div>
-
-                <div className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-muted/50 rounded-lg">
-                  <div className="p-1.5 sm:p-2 bg-primary/10 rounded-full flex-shrink-0">
-                    <MapPin className="h-3 w-3 sm:h-4 sm:w-4 text-primary" />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <div className="text-xs sm:text-sm text-muted-foreground">
-                      Location
+                <Link href={detail?.locations_url ?? "#"} target="_blank" rel="noopener noreferrer">
+                  <div className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-muted/50 rounded-lg">
+                    <div className="p-1.5 sm:p-2 bg-primary/10 rounded-full flex-shrink-0">
+                      <MapPin className="h-3 w-3 sm:h-4 sm:w-4 text-primary" />
                     </div>
-                    <div className="font-medium text-sm sm:text-base truncate">
-                      {detail?.location}
+                    <div className="min-w-0 flex-1">
+                      <div className="text-xs sm:text-sm text-muted-foreground">
+                        Location
+                      </div>
+                      <div className="font-medium text-sm sm:text-base truncate">
+                        {detail?.location}
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               </div>
 
               <div className="mt-4 sm:mt-6">
@@ -160,7 +162,9 @@ export default function ExperienceDetail({
                   Overview
                 </h3>
                 <p
-                  dangerouslySetInnerHTML={{ __html: detail?.description || "" }}
+                  dangerouslySetInnerHTML={{
+                    __html: detail?.description || "",
+                  }}
                   className="text-sm sm:text-base text-muted-foreground leading-relaxed"
                 />
               </div>
