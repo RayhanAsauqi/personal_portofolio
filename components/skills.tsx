@@ -20,7 +20,6 @@ export function Skills() {
 
     const timer = setTimeout(() => {
       const ctx = gsap.context(() => {
-        // Title animation
         const titleElement = skillsRef.current?.querySelector(".skills-title");
         if (titleElement) {
           gsap.fromTo(
@@ -40,7 +39,6 @@ export function Skills() {
           );
         }
 
-        // Subtitle animation
         const subtitleElement =
           skillsRef.current?.querySelector(".skills-subtitle");
         if (subtitleElement) {
@@ -62,7 +60,6 @@ export function Skills() {
           );
         }
 
-        // Container fade in
         const skillsContainer =
           skillsRef.current?.querySelector(".skills-container");
         if (skillsContainer) {
@@ -83,23 +80,21 @@ export function Skills() {
           );
         }
 
-        // Row 1 animation (moving left)
         if (row1Ref.current) {
           gsap.set(row1Ref.current, { x: "0%" });
           gsap.to(row1Ref.current, {
             x: "-50%",
-            duration: 25,
+            duration: 30,
             ease: "none",
             repeat: -1,
           });
         }
 
-        // Row 2 animation (moving right)
         if (row2Ref.current) {
           gsap.set(row2Ref.current, { x: "-50%" });
           gsap.to(row2Ref.current, {
             x: "0%",
-            duration: 25,
+            duration: 30,
             ease: "none",
             repeat: -1,
           });
@@ -191,22 +186,26 @@ export function Skills() {
   const duplicatedRow2 = [...skillsRow2, ...skillsRow2];
 
   return (
-    <section id="skills" ref={skillsRef} className=" overflow-hidden">
-      <div className="container mx-auto ">
+    <section
+      id="skills"
+      ref={skillsRef}
+      className="py-12 sm:py-16 md:py-20 overflow-hidden"
+    >
+      <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto ">
           <div className="text-center mb-16"></div>
 
           <div className="skills-container space-y-12">
             <div className="relative overflow-hidden ">
-              <div ref={row1Ref} className="flex gap-8 w-max">
+              <div ref={row1Ref} className="flex gap-4 sm:gap-6 md:gap-8 w-max">
                 {duplicatedRow1.map((skill, index) => (
                   <Card
                     key={`row1-${index}`}
-                    className={`skill-item group cursor-pointer border-2 hover:border-primary/30 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 ${skill.bgColor} flex-shrink-0 w-80 my-2`}
+                    className={`skill-item group cursor-pointer border-2 hover:border-primary/30 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 ${skill.bgColor} flex-shrink-0 w-64 sm:w-72 md:w-80 my-2`}
                   >
-                    <CardContent>
-                      <div className="flex items-center gap-6">
-                        <div className="relative w-16 h-16 flex-shrink-0">
+                    <CardContent className="  ">
+                      <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
+                        <div className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 flex-shrink-0">
                           <Image
                             src={skill.image || "/placeholder.svg"}
                             alt={skill.name}
@@ -216,8 +215,8 @@ export function Skills() {
                           />
                         </div>
 
-                        <div className="flex-1">
-                          <h3 className="font-bold text-xl mb-1 group-hover:text-primary transition-colors">
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-bold text-sm sm:text-base md:text-xl mb-1 group-hover:text-primary transition-colors truncate">
                             {skill.name}
                           </h3>
                         </div>
@@ -229,15 +228,15 @@ export function Skills() {
             </div>
 
             <div className="relative overflow-hidden ">
-              <div ref={row2Ref} className="flex gap-8 w-max">
+              <div ref={row2Ref} className="flex gap-4 sm:gap-6 md:gap-8 w-max">
                 {duplicatedRow2.map((skill, index) => (
                   <Card
                     key={`row2-${index}`}
-                    className={`skill-item group cursor-pointer border-2 hover:border-primary/30 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${skill.bgColor} flex-shrink-0 w-80 my-2`}
+                    className={`skill-item group cursor-pointer border-2 hover:border-primary/30 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 ${skill.bgColor} flex-shrink-0 w-64 sm:w-72 md:w-80 my-2`}
                   >
-                    <CardContent>
-                      <div className="flex items-center gap-6">
-                        <div className="relative w-16 h-16 flex-shrink-0">
+                    <CardContent className="">
+                      <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
+                        <div className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 flex-shrink-0">
                           <Image
                             src={skill.image || "/placeholder.svg"}
                             alt={skill.name}
@@ -247,8 +246,8 @@ export function Skills() {
                           />
                         </div>
 
-                        <div className="flex-1">
-                          <h3 className="font-bold text-xl mb-1 group-hover:text-primary transition-colors">
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-bold text-sm sm:text-base md:text-xl mb-1 group-hover:text-primary transition-colors truncate">
                             {skill.name}
                           </h3>
                         </div>

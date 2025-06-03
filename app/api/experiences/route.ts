@@ -6,7 +6,7 @@ export type ExperienceState = {
   company: string;
   location: string;
   period: string;
-  description: string[];
+  description: string;
   type: string;
 };
 
@@ -17,9 +17,8 @@ const experiences: ExperienceState[] = [
     company: "Fakta.com",
     location: "South Jakarta, Pancoran, DKI Jakarta, Indonesia",
     period: "Jan 2025 - Present",
-    description: [
-      "Led development of scalable web applications using React, Node.js, and AWS. Mentored junior developers and implemented best practices for code quality and performance.",
-    ],
+    description:
+      "Developing a modern and user-friendly Content Management System (CMS) for the news platform informasi.kdi.biz.id, designed to be responsive and intuitive across devices. The system supports efficient management of news, media, advertisements, and user-generated content (UGC), incorporating Role-Based Access Control (RBAC), moderation and approval workflows, and interactive analytics and reporting tools. The entire development followed Agile methodology with iterative sprints to ensure alignment with user and stakeholder needs.",
     type: "Freelance",
   },
   {
@@ -28,13 +27,8 @@ const experiences: ExperienceState[] = [
     company: "PT. Sarimurni",
     location: "Setiabudi, South Jakarta, DKI Jakarta, Indonesia",
     period: "Oct 2024 - present",
-    description: [
-      "This project aims to build a Learning Management System (LMS) web application that will be used internally by Sarimurni Group. This application is designed to support the employee training and development process digitally and centrally.",
-      "The development focus also includes designing an intuitive, responsive, and easy-to-use user interface (UI) and user experience (UX). This design is adapted according to the needs of internal users and the visual identity of Sarimurni Group.",
-      "This web application will be integrated with the API provided by the backend team, so that data can be displayed and managed dynamically. This integration ensures two-way communication between the user interface and the backend system runs smoothly.",
-      "The development is directed primarily at the CMS interface, which will be used by admins or specific users to manage content, users, and other system settings. The CMS interface is designed to be functional and easily accessible according to operational needs.",
-      "To maintain security and regularity of access, the system is equipped with a Role-Based Access Control (RBAC) mechanism. With this system, each user can only access features and information that are in accordance with their roles and responsibilities within the organization.",
-    ],
+    description:
+      "Developed a Learning Management System (LMS) web application for Sarimurni Group to support internal employee training and development in a centralized and digital environment. The project focused on delivering an intuitive and responsive user interface, seamless frontend-backend integration, and secure access control through Role-Based Access Control (RBAC). In addition to developing the CMS interface and implementing authentication flows, I also collaborated closely with the backend team.",
     type: "Internship",
   },
   {
@@ -43,9 +37,8 @@ const experiences: ExperienceState[] = [
     company: "PT. GITS Indonesia",
     location: "Summarecon, Bandung, West Java, Indonesia",
     period: "Aug 2023 - Des 2023",
-    description: [
-      "Specialized in creating interactive and visually appealing frontend experiences. Worked closely with designers to implement pixel-perfect designs.",
-    ],
+    description:
+      "Completed an internship as a Frontend Software Engineer at GITS, contributing to the development of an e-Procurement web application. Participated in a full training program to build and enhance frontend development skills, learning technologies such as Vue.js and Nuxt.js. Worked closely with a cross-functional team within an Agile Scrum environment, focusing on creating responsive and easy-to-use user interfaces while collaborating effectively with designers and backend developers.",
     type: "Internship",
   },
   {
@@ -54,9 +47,8 @@ const experiences: ExperienceState[] = [
     company: "Skilvul",
     location: "Jakarta South, DKI Jakarta, Indonesia",
     period: "Feb 2023 - Jun 2023",
-    description: [
-      "Started my career building web applications and learning modern development practices. Contributed to various projects and gained experience in full-stack development.",
-    ],
+    description:
+      "Completed an internship where I was actively involved in the entire product development cycle—from initial design discussions to full implementation. During the internship, I helped develop a web-based book reading application that integrates a large and dynamic collection of books from a centralized database. This project allowed me to deepen my understanding of user interface design, API integration, and the importance of delivering a smooth and accessible reading experience.",
     type: "Internship",
   },
 ];

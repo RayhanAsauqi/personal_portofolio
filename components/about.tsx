@@ -101,21 +101,24 @@ export function About() {
               <h3 className="text-2xl font-semibold mb-6">
                 Hello! I&apos;m Rayhan Alsauqi
               </h3>
-              <p className="text-muted-foreground mb-6 leading-relaxed">
-                I&apos;m a passionate full-stack developer with over 5 years of
-                experience creating digital solutions that make a difference. I
-                love turning complex problems into simple, beautiful, and
-                intuitive designs.
+              <p className="text-muted-foreground mb-3 leading-relaxed">
+                I’m a web developer with 2 years of experience gained through
+                internships and freelance projects. During my time in college, I
+                worked hard to improve my GPA from a low starting point, while
+                continuously developing my technical skills.
               </p>
-              <p className="text-muted-foreground mb-6 leading-relaxed">
-                When I&apos;m not coding, you can find me exploring new
-                technologies, contributing to open-source projects, or sharing
-                my knowledge through blog posts and mentoring.
+              <p className="text-muted-foreground mb-3 text- leading-relaxed">
+                I focus on front-end development, with a strong passion for
+                creating clean, responsive, and user-friendly interfaces. In my
+                spare time, I also explore back-end technologies to expand my
+                knowledge and prepare myself to become a full-stack developer.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                I believe in the power of collaboration and am always excited to
-                work with teams that share my passion for creating exceptional
-                user experiences.
+                I enjoy collaborating with others, engaging in discussions, and
+                finding solutions together as a team. I believe the best results
+                come from teamwork rather than working alone. I’m always eager
+                to learn, contribute, and be part of impactful projects that
+                deliver real value to users.
               </p>
             </div>
 

@@ -159,26 +159,10 @@ export default function ExperienceDetail({
                   <Briefcase className="h-4 w-4 sm:h-5 sm:w-5 text-primary flex-shrink-0" />
                   Overview
                 </h3>
-                <ul className="space-y-1.5 sm:space-y-2">
-                  {Array.isArray(detail?.description) ? (
-                    detail?.description.map((desc, i) => (
-                      <li key={i} className="flex items-start gap-2">
-                        <span className="text-primary mt-0.5 sm:mt-1 flex-shrink-0 text-sm">
-                          •
-                        </span>
-                        <span className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-                          {desc}
-                        </span>
-                      </li>
-                    ))
-                  ) : (
-                    <li className="flex items-start gap-2">
-                      <span className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-                        {detail?.description || "No description available"}
-                      </span>
-                    </li>
-                  )}
-                </ul>
+                <p
+                  dangerouslySetInnerHTML={{ __html: detail?.description || "" }}
+                  className="text-sm sm:text-base text-muted-foreground leading-relaxed"
+                />
               </div>
 
               <div className="mt-4 sm:mt-6">
