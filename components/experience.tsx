@@ -364,7 +364,7 @@ export function Experience() {
                         <div className="mt-4 md:mt-6 pt-3 md:pt-4 border-t border-border">
                           <div className="flex items-center justify-between text-xs text-muted-foreground">
                             <span>Job Type</span>
-                            <span className="hidden sm:inline font-medium text-primary">
+                            <span className=" sm:inline font-medium text-primary">
                               {exp.type}
                             </span>
                           </div>
