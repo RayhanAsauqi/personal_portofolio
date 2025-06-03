@@ -2,13 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import {
-  Download,
-  Github,
-  Instagram,
-  Linkedin,
-  Mail,
-} from "lucide-react";
+import { Download, Github, Instagram, Linkedin, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function Hero() {
@@ -101,9 +95,7 @@ export function Hero() {
           </h2>
 
           <p className="hero-description text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-            Passionate about creating beautiful, functional, and user-centered
-            digital experiences. I specialize in modern web technologies and
-            love bringing ideas to life through code.
+            Building modern, responsive web interfaces with care and creativity.
           </p>
 
           <div className="hero-buttons flex flex-col sm:flex-row gap-4 justify-center mb-12">

@@ -298,7 +298,6 @@ export function Experience() {
       ref={experienceRef}
       className="py-12 md:py-20 relative overflow-hidden"
     >
-      {/* Background decorations */}
       <div className="bg-decoration absolute top-10 right-10 w-32 h-32  border-primary/10 rounded-full"></div>
       <div className="rotate-on-scroll absolute bottom-10 left-10 w-24 h-24  border-primary/20 rounded-full"></div>
 
@@ -350,33 +349,14 @@ export function Experience() {
                           <MapPin className="h-3 w-3 md:h-4 md:w-4 flex-shrink-0" />
                           <span className="truncate">{exp.location}</span>
                         </div>
-
-                        <ul className="space-y-2">
-                          {Array.isArray(exp?.description) ? (
-                            <>
-                              {exp.description.slice(0, 1).map((desc, i) => (
-                                <li
-                                  key={i}
-                                  className="flex items-start gap-2 text-sm md:text-base mb-2 leading-relaxed"
-                                >
-                                  <span className="text-primary mt-1">•</span>
-                                  <span className="text-muted-foreground">
-                                    {desc}
-                                  </span>
-                                </li>
-                              ))}
-                            </>
-                          ) : (
-                            <li className="flex items-start gap-2">
-                              <span className="text-muted-foreground">
-                                {exp?.description || "No description available"}
-                              </span>
-                            </li>
-                          )}
-                        </ul>
+                        <p className="job-description text-sm md:text-base text-muted-foreground mb-4 line-clamp-3">
+                          {exp.description}
+                        </p>
 
                         <Button
-                          variant="ghost"
+                          variant="default"
+                          size="sm"
+                          className="text-xs"
                           onClick={() => handleOpen(exp.slug)}
                         >
                           View Details
@@ -398,7 +378,6 @@ export function Experience() {
               ))}
             </div>
 
-            {/* End marker */}
             <div className="timeline-item relative flex justify-center mt-12 md:mt-16">
               <div className="timeline-dot absolute left-6 md:left-1/2 w-6 h-6 md:w-8 md:h-8 bg-gradient-to-r from-primary to-primary/60 rounded-full transform -translate-x-1/2 md:-translate-x-1/2 z-10 border-2 md:border-4 border-background shadow-lg flex items-center justify-center">
                 <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-background rounded-full"></div>
