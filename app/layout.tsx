@@ -16,35 +16,24 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Portfolio Rayhan Alsauqi - Full Stack Developer",
   description:
-    "Portfolio website of Rayhan Alsauqi, a passionate Full Stack Developer specializing in React, Next.js, Node.js, and modern web technologies. Explore my projects and experience.",
+    "Portfolio website showcasing my skills in full-stack development, featuring projects in React, Next.js, Node.js, and modern web technologies.",
   keywords:
-    "Rayhan Alsauqi, Full Stack Developer, React, Next.js, Node.js, JavaScript, TypeScript, Web Developer, Portfolio",
+    "Rayhan Alsauqi, Full Stack Developer, React, Next.js, JavaScript, TypeScript, Portfolio, Web Developer",
   authors: [{ name: "Rayhan Alsauqi" }],
   creator: "Rayhan Alsauqi",
-  publisher: "Rayhan Alsauqi",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  metadataBase: new URL("https://www.portfoliorayhan.netlify.app"),
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     title: "Portfolio Rayhan Alsauqi - Full Stack Developer",
     description:
-      "Portfolio website of Rayhan Alsauqi, a passionate Full Stack Developer specializing in React, Next.js, Node.js, and modern web technologies.",
-    url: "https://www.portfoliorayhan.netlify.app",
+      "Portfolio website showcasing my skills in full-stack development, featuring projects in React, Next.js, Node.js, and modern web technologies.",
+    url: "https://www.portfoliorayhan.netlify.app", // Updated dengan www
     siteName: "Portfolio Rayhan Alsauqi",
-    locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Portfolio Rayhan Alsauqi - Full Stack Developer",
     description:
-      "Portfolio website of Rayhan Alsauqi, a passionate Full Stack Developer specializing in React, Next.js, Node.js, and modern web technologies.",
+      "Portfolio website showcasing my skills in full-stack development, featuring projects in React, Next.js, Node.js, and modern web technologies.",
   },
   robots: {
     index: true,
@@ -58,10 +47,17 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: "G-Z3HLVXZFF5",
+    google: "your-google-verification-code",
+  },
+  alternates: {
+    canonical: "https://www.portfoliorayhan.netlify.app",
+  },
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
   },
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
