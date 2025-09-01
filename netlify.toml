@@ -1,9 +1,10 @@
 [build]
   publish = ".next"
-  
+  command = "npm run build"
+
 [[redirects]]
-  from = "https://portfoliorayhan.netlify.app/*"
-  to = "https://www.portfoliorayhan.netlify.app/:splat"
+  from = "https://www.portfoliorayhan.netlify.app/*"
+  to = "https://portfoliorayhan.netlify.app/:splat"
   status = 301
   force = true
 
