@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
 
+# Sitemap
 Sitemap: https://www.portfoliorayhan.netlify.app/sitemap.xml
+
