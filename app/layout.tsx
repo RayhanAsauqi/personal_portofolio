@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     title: "Portfolio Rayhan Alsauqi - Full Stack Developer",
     description:
       "Portfolio website showcasing my skills in full-stack development, featuring projects in React, Next.js, Node.js, and modern web technologies.",
-    url: "https://www.portfoliorayhan.netlify.app", // Updated dengan www
+    url: "https://portfoliorayhan.netlify.app",
     siteName: "Portfolio Rayhan Alsauqi",
     type: "website",
   },
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     google: "your-google-verification-code",
   },
   alternates: {
-    canonical: "https://www.portfoliorayhan.netlify.app",
+    canonical: "https://portfoliorayhan.netlify.app",
   },
   formatDetection: {
     email: false,
