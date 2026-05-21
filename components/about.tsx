@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Image from 'next/image';
 
-if (typeof window !== "undefined") {
+if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
@@ -13,11 +13,11 @@ export function About() {
   const aboutRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    if (typeof window === "undefined" || !aboutRef.current) return;
+    if (typeof window === 'undefined' || !aboutRef.current) return;
 
     const timer = setTimeout(() => {
       const ctx = gsap.context(() => {
-        const titleElement = aboutRef.current?.querySelector(".about-title");
+        const titleElement = aboutRef.current?.querySelector('.about-title');
         if (titleElement) {
           gsap.fromTo(
             titleElement,
@@ -28,16 +28,15 @@ export function About() {
               duration: 1,
               scrollTrigger: {
                 trigger: titleElement,
-                start: "top 80%",
-                end: "bottom 20%",
-                toggleActions: "play none none reverse",
+                start: 'top 80%',
+                end: 'bottom 20%',
+                toggleActions: 'play none none reverse',
               },
-            }
+            },
           );
         }
 
-        const contentElements =
-          aboutRef.current?.querySelectorAll(".about-content");
+        const contentElements = aboutRef.current?.querySelectorAll('.about-content');
         if (contentElements && contentElements.length > 0) {
           contentElements.forEach((element, index) => {
             gsap.fromTo(
@@ -50,16 +49,16 @@ export function About() {
                 delay: index * 0.2,
                 scrollTrigger: {
                   trigger: element,
-                  start: "top 80%",
-                  end: "bottom 20%",
-                  toggleActions: "play none none reverse",
+                  start: 'top 80%',
+                  end: 'bottom 20%',
+                  toggleActions: 'play none none reverse',
                 },
-              }
+              },
             );
           });
         }
 
-        const skillCards = aboutRef.current?.querySelectorAll(".skill-card");
+        const skillCards = aboutRef.current?.querySelectorAll('.skill-card');
         if (skillCards && skillCards.length > 0) {
           skillCards.forEach((card, index) => {
             gsap.fromTo(
@@ -72,11 +71,11 @@ export function About() {
                 delay: index * 0.1,
                 scrollTrigger: {
                   trigger: card,
-                  start: "top 80%",
-                  end: "bottom 20%",
-                  toggleActions: "play none none reverse",
+                  start: 'top 80%',
+                  end: 'bottom 20%',
+                  toggleActions: 'play none none reverse',
                 },
-              }
+              },
             );
           });
         }
@@ -92,33 +91,23 @@ export function About() {
     <section id="about" ref={aboutRef} className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
-          <h2 className="about-title text-3xl md:text-4xl font-bold text-center mb-12">
-            About Me
-          </h2>
+          <h2 className="about-title text-3xl md:text-4xl font-bold text-center mb-12">About Me</h2>
 
           <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
             <div className="about-content">
-              <h3 className="text-2xl font-semibold mb-6">
-                Hello! I&apos;m Rayhan Alsauqi
-              </h3>
+              <h3 className="text-2xl font-semibold mb-6">Hello! I&apos;m Rayhan Alsauqi</h3>
               <p className="text-muted-foreground mb-3 leading-relaxed">
-                I’m a web developer with 2 years of experience gained through
-                internships and freelance projects. During my time in college, I
-                worked hard to improve my GPA from a low starting point, while
-                continuously developing my technical skills.
+                Frontend-focused Full-Stack Engineer with 1+ year of production experience building
+                scalable web applications across media, e-commerce, and enterprise domains.
               </p>
-              <p className="text-muted-foreground mb-3 text- leading-relaxed">
-                I focus on front-end development, with a strong passion for
-                creating clean, responsive, and user-friendly interfaces. In my
-                spare time, I also explore back-end technologies to expand my
-                knowledge and prepare myself to become a full-stack developer.
+              <p className="text-muted-foreground mb-3 leading-relaxed">
+                I specialize in React.js, Next.js, and TypeScript, with growing backend experience
+                in Golang and Node.js — delivering full-cycle features in close collaboration with
+                cross-functional teams.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                I enjoy collaborating with others, engaging in discussions, and
-                finding solutions together as a team. I believe the best results
-                come from teamwork rather than working alone. I’m always eager
-                to learn, contribute, and be part of impactful projects that
-                deliver real value to users.
+                Computer Science graduate from Universitas Paramadina, always eager to take on new
+                challenges and ship products that create real impact.
               </p>
             </div>
 
