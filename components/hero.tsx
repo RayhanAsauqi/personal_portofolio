@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { Download, Github, Instagram, Linkedin, Mail } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { Download, Github, Instagram, Linkedin, Mail } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export function Hero() {
   const heroRef = useRef<HTMLElement>(null);
@@ -13,47 +13,47 @@ export function Hero() {
       const tl = gsap.timeline();
 
       tl.fromTo(
-        ".hero-title",
+        '.hero-title',
         { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' },
       )
         .fromTo(
-          ".hero-subtitle",
+          '.hero-subtitle',
           { opacity: 0, y: 50 },
-          { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" },
-          "-=0.5"
+          { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' },
+          '-=0.5',
         )
         .fromTo(
-          ".hero-description",
+          '.hero-description',
           { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
-          "-=0.3"
+          { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
+          '-=0.3',
         )
         .fromTo(
-          ".hero-buttons",
+          '.hero-buttons',
           { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
-          "-=0.2"
+          { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
+          '-=0.2',
         )
         .fromTo(
-          ".hero-social",
+          '.hero-social',
           { opacity: 0, scale: 0 },
           {
             opacity: 1,
             scale: 1,
             duration: 0.5,
             stagger: 0.1,
-            ease: "back.out(1.7)",
+            ease: 'back.out(1.7)',
           },
-          "-=0.3"
+          '-=0.3',
         );
 
-      gsap.to(".hero-title", {
+      gsap.to('.hero-title', {
         y: -10,
         duration: 2,
         repeat: -1,
         yoyo: true,
-        ease: "power2.inOut",
+        ease: 'power2.inOut',
       });
     }, heroRef);
 
@@ -61,19 +61,19 @@ export function Hero() {
   }, []);
 
   const downloadCV = () => {
-    const link = document.createElement("a");
-    link.href = "/assets/CV_UPDATE_BARU.pdf";
-    link.download = "CV_Rayhan_Alsauqi.pdf";
+    const link = document.createElement('a');
+    link.href = '/assets/CV_UPDATE_BARU.pdf';
+    link.download = 'CV_Rayhan_Alsauqi.pdf';
     link.click();
   };
 
   const scrollToContact = () => {
-    const element = document.getElementById("contact");
+    const element = document.getElementById('contact');
     if (element) {
       const offsetTop = element.offsetTop - 80;
       window.scrollTo({
         top: offsetTop,
-        behavior: "smooth",
+        behavior: 'smooth',
       });
     }
   };
@@ -91,7 +91,7 @@ export function Hero() {
           </h1>
 
           <h2 className="hero-subtitle text-xl md:text-2xl lg:text-3xl text-muted-foreground mb-6">
-            Frontend Developer
+            Full-Stack Developer
           </h2>
 
           <p className="hero-description text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
