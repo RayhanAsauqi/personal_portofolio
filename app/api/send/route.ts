@@ -1,21 +1,21 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
-import nodemailer from "nodemailer";
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import nodemailer from 'nodemailer';
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const { name, email, subject, message } = body;
 
   if (!name || !email || !subject || !message) {
-    return NextResponse.json({ message: "Missing fields" }, { status: 400 });
+    return NextResponse.json({ message: 'Missing fields' }, { status: 400 });
   }
 
   try {
     const transporter = nodemailer.createTransport({
-      service: "Gmail",
+      service: 'Gmail',
       auth: {
-        user: process.env.NEXT_PUBLIC_EMAIL_USER,
-        pass: process.env.NEXT_PUBLIC_EMAIL_PASS,
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
 
@@ -164,14 +164,14 @@ export async function POST(req: NextRequest) {
             </div>
             
             <div class="timestamp">
-              📅 Received on: ${new Date().toLocaleString("en-US", {
-                weekday: "long",
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-                timeZoneName: "short",
+              📅 Received on: ${new Date().toLocaleString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                timeZoneName: 'short',
               })}
             </div>
           </div>
@@ -207,21 +207,15 @@ Reply directly to ${email} to respond.
     await transporter.sendMail({
       from: `"Portfolio Contact Form" <${process.env.NEXT_PUBLIC_EMAIL_USER}>`,
       replyTo: email,
-      to: process.env.NEXT_PUBLIC_EMAIL_RECEIVER,
+      to: process.env.EMAIL_RECEIVER,
       subject: `🔔 New Contact: ${subject}`,
       text: textVersion,
       html: htmlTemplate,
     });
 
-    return NextResponse.json(
-      { message: "Email sent successfully" },
-      { status: 200 }
-    );
+    return NextResponse.json({ message: 'Email sent successfully' }, { status: 200 });
   } catch (error) {
-    console.error("Failed to send email:", error);
-    return NextResponse.json(
-      { message: "Failed to send email" },
-      { status: 500 }
-    );
+    console.error('Failed to send email:', error);
+    return NextResponse.json({ message: 'Failed to send email' }, { status: 500 });
   }
 }
