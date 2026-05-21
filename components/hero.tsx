@@ -62,7 +62,7 @@ export function Hero() {
 
   const downloadCV = () => {
     const link = document.createElement('a');
-    link.href = '/assets/CV_UPDATE_BARU.pdf';
+    link.href = '/assets/CV.pdf';
     link.download = 'CV_Rayhan_Alsauqi.pdf';
     link.click();
   };
